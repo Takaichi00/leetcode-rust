@@ -1,7 +1,7 @@
 use derive_new::new;
 
-#[derive(new)]
 // https://leetcode.com/problems/running-sum-of-1d-array/submissions/
+#[derive(new)]
 pub struct Solution {}
 
 impl Solution {
@@ -26,7 +26,7 @@ impl Solution {
 
 #[cfg(test)]
 mod test {
-    use crate::running_sum_of_array::Solution;
+    use crate::running_sum_of_array_1480::Solution;
 
     #[test]
     fn test_solution() {
