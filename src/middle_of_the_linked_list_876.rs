@@ -7,11 +7,6 @@ pub struct Solution {}
 impl Solution {
     pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 
-
-        if head.unwrap().has_next() {
-            ListNode::new(head.unwrap().val);
-        }
-
         let node1 = ListNode::new(1);
         Some(Box::new(node1))
     }
@@ -34,6 +29,14 @@ impl ListNode {
 
     fn has_next(&self) -> bool {
         self.next.is_some()
+    }
+}
+
+impl Iterator for ListNode {
+    type Item = Box<ListNode>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.next.clone()
     }
 }
 
@@ -68,9 +71,9 @@ mod test {
         let mut node4 = ListNode::new(4);
         let mut node5 = ListNode::new(5);
         node1.push(node2);
-        node2.push(node3);
-        node3.push(node4);
-        node4.push(node5);
+        // node2.push(node3);
+        // node3.push(node4);
+        // node4.push(node5);
 
         let result = Solution::middle_node(Some(Box::new(node1))).unwrap();
     }
