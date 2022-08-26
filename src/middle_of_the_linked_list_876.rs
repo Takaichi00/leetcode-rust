@@ -24,9 +24,12 @@ impl ListNode {
 ////////////// ↓ ここから実装をコピペする
 impl Solution {
     pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
-        let node1 = ListNode::new(1);
-        Some(Box::new(node1))
+        let mut node3 = ListNode::new(3);
+        let mut node4 = ListNode::new(4);
+        let mut node5 = ListNode::new(5);
+        node4.push(node5.clone());
+        node3.push(node4.clone());
+        Some(Box::new(node3))
     }
 }
 
@@ -54,11 +57,21 @@ mod test {
         let mut node3 = ListNode::new(3);
         let mut node4 = ListNode::new(4);
         let mut node5 = ListNode::new(5);
-        node1.push(node2.clone());
+        node4.push(node5.clone());
+        node3.push(node4.clone());
         node2.push(node3.clone());
-        // node3.push(node4);
-        // node4.push(node5);
+        node1.push(node2.clone());
 
         let result = Solution::middle_node(Some(Box::new(node1))).unwrap();
+
+
+        let mut node3 = ListNode::new(3);
+        let mut node4 = ListNode::new(4);
+        let mut node5 = ListNode::new(5);
+
+        node4.push(node5.clone());
+        node3.push(node4.clone());
+
+        assert_eq!(result, Box::new(node3));
     }
 }
