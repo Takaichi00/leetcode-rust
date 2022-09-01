@@ -28,12 +28,17 @@ impl Solution {
         // println!("{:#}", head.clone().unwrap().val);
         // println!("{:#}", head.clone().unwrap().next.unwrap().val);
 
-        let mut node5 = head.unwrap().get_last_node();
-        println!("node5: {:#?}", node5);
-        // next が None の ListNode を new して返す を 3回する
-        // → None になるまで ListNode を追って、None の ListNode を返す
+        let mut list_node_org = head.clone().unwrap();
 
-        // next が None の ListNode の 2つ上の ListNode 以外は pop する
+        println!("before remove: {:#?}", list_node_org);
+
+        let mut node5 = list_node_org.get_last_node();
+
+        println!("node5: {:#?}", node5);
+
+        let _ = list_node_org.remove_last_node();
+
+        println!("after remove: {:#?}", list_node_org);
 
         // 1,2,3,4,5
         let mut node3 = ListNode::new(3);
@@ -62,45 +67,31 @@ impl ListNode {
         return self.next.is_some()
     }
 
-    fn has_next_2(&self) -> bool {
-
-        match self.clone().next.clone() {
-            Some(next_list_node) => {
-                match next_list_node.clone().next.clone() {
-                    Some(_) => {
-                        true
-                    },
-                    None => {
-                        false
-                    }
-                }
-            },
-            None => {
-                false
-            }
+    fn has_next_2(& mut self) -> bool {
+        if self.clone().next.clone().is_some() {
+            return self.clone().next.unwrap().next.is_some();
         }
-
-        //
-        // if self.next.is_none() {
-        //     return false;
-        // }
-        //
-        // if self.next.unwrap().next.is_none() {
-        //     return false
-        // }
-        //
-        // true
+        false
     }
 
-    fn get_last_node(&self) -> ListNode {
+    fn get_last_node(& mut self) -> ListNode {
 
-        println!("self: {:#?}", self);
-
-        if self.has_next_2() {
-            return self.clone().next.clone().unwrap().get_last_node();
+        if self.has_next() {
+            return self.clone().next.unwrap().get_last_node();
         }
-        // 2個先が None だったら、2個先の self を返して、1個先の node の next を none にする
-        *self.next.clone().unwrap().next.clone().unwrap()
+        self.clone()
+    }
+
+    fn remove_last_node(&mut self) -> () {
+        println!("---再帰---");
+        println!("val:{}, next:{:#?}", self.val, self.next);
+        if self.has_next_2() {
+            self.clone().next.unwrap().remove_last_node();
+        }
+        else {
+            self.next = None;
+            return ();
+        }
     }
 }
 
