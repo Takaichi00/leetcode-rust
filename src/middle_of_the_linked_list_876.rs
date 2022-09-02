@@ -24,76 +24,11 @@ impl ListNode {
 ////////////// ↓ ここから実装をコピペする
 impl Solution {
     pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
-        // println!("{:#}", head.clone().unwrap().val);
-        // println!("{:#}", head.clone().unwrap().next.unwrap().val);
-
-        let mut list_node_org = head.clone().unwrap();
-
-        println!("before remove: {:#?}", list_node_org);
-
-        let mut node5 = list_node_org.get_last_node();
-
-        println!("node5: {:#?}", node5);
-
-        let _ = list_node_org.remove_last_node();
-
-        println!("after remove: {:#?}", list_node_org);
-
-        // 1,2,3,4,5
-        let mut node3 = ListNode::new(3);
-        let mut node4 = ListNode::new(4);
-        let mut node5 = ListNode::new(5);
-        node4.push(node5.clone());
-        node3.push(node4.clone());
-        Some(Box::new(node3))
+        // https://leetcode.com/explore/featured/card/the-leetcode-beginners-guide/692/challenge-problems/4426/ を参考にする
+        todo!()
     }
 }
 
-impl Iterator for ListNode {
-    type Item = Box<ListNode>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        self.next.clone()
-    }
-}
-
-impl ListNode {
-    fn push(&mut self, next_node: ListNode) -> () {
-        self.next = Some(Box::new(next_node));
-    }
-
-    fn has_next(&self) -> bool {
-        return self.next.is_some()
-    }
-
-    fn has_next_2(& mut self) -> bool {
-        if self.clone().next.clone().is_some() {
-            return self.clone().next.unwrap().next.is_some();
-        }
-        false
-    }
-
-    fn get_last_node(& mut self) -> ListNode {
-
-        if self.has_next() {
-            return self.clone().next.unwrap().get_last_node();
-        }
-        self.clone()
-    }
-
-    fn remove_last_node(&mut self) -> () {
-        println!("---再帰---");
-        println!("val:{}, next:{:#?}", self.val, self.next);
-        if self.has_next_2() {
-            self.clone().next.unwrap().remove_last_node();
-        }
-        else {
-            self.next = None;
-            return ();
-        }
-    }
-}
 
 #[cfg(test)]
 mod test {
