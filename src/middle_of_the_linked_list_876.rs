@@ -25,7 +25,22 @@ impl ListNode {
 impl Solution {
     pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         // https://leetcode.com/explore/featured/card/the-leetcode-beginners-guide/692/challenge-problems/4426/ を参考にする
-        todo!()
+        println!("args: {:#?}", head);
+        let mut mut_head = head.clone();
+        let mut list: Vec<ListNode> = Vec::new();
+
+        while mut_head.is_some() {
+            list.push(*mut_head.clone().unwrap());
+            mut_head = mut_head.clone().unwrap().next;
+        }
+
+        println!("list: {:#?}", list);
+
+        let result = list.get(list.len() / 2).unwrap().clone();
+
+        println!("result: {:#?}", result);
+
+        Some(Box::new(result))
     }
 }
 
@@ -41,10 +56,10 @@ mod test {
         let mut node3 = ListNode::new(3);
         let mut node4 = ListNode::new(4);
         let mut node5 = ListNode::new(5);
-        node4.push(node5.clone());
-        node3.push(node4.clone());
-        node2.push(node3.clone());
-        node1.push(node2.clone());
+        node4.next = Some(Box::new(node5));
+        node3.next = Some(Box::new(node4));
+        node2.next = Some(Box::new(node3));
+        node1.next = Some(Box::new(node2));
 
         let result = Solution::middle_node(Some(Box::new(node1))).unwrap();
 
@@ -53,8 +68,8 @@ mod test {
         let mut node4 = ListNode::new(4);
         let mut node5 = ListNode::new(5);
 
-        node4.push(node5.clone());
-        node3.push(node4.clone());
+        node4.next = Some(Box::new(node5));
+        node3.next = Some(Box::new(node4));
 
         assert_eq!(result, Box::new(node3));
     }
