@@ -42,6 +42,18 @@ impl Solution {
 
         Some(Box::new(result))
     }
+
+    pub fn middle_node_2(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut middle = head.clone();
+        let mut end = head.clone();
+
+        while end.clone().is_some() && end.clone().unwrap().next.is_some() {
+            middle = middle.clone().unwrap().next;
+            end = end.clone().unwrap().next.unwrap().next;
+        }
+
+        middle
+    }
 }
 
 
@@ -62,6 +74,31 @@ mod test {
         node1.next = Some(Box::new(node2));
 
         let result = Solution::middle_node(Some(Box::new(node1))).unwrap();
+
+
+        let mut node3 = ListNode::new(3);
+        let mut node4 = ListNode::new(4);
+        let mut node5 = ListNode::new(5);
+
+        node4.next = Some(Box::new(node5));
+        node3.next = Some(Box::new(node4));
+
+        assert_eq!(result, Box::new(node3));
+    }
+
+    #[test]
+    fn test_solution2() {
+        let mut node1 = ListNode::new(1);
+        let mut node2 = ListNode::new(2);
+        let mut node3 = ListNode::new(3);
+        let mut node4 = ListNode::new(4);
+        let mut node5 = ListNode::new(5);
+        node4.next = Some(Box::new(node5));
+        node3.next = Some(Box::new(node4));
+        node2.next = Some(Box::new(node3));
+        node1.next = Some(Box::new(node2));
+
+        let result = Solution::middle_node_2(Some(Box::new(node1))).unwrap();
 
 
         let mut node3 = ListNode::new(3);
