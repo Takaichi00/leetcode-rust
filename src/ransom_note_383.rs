@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/ransom-note/
 use derive_new::new;
+use factorial::Factorial;
 
 #[derive(new)]
 pub struct Solution {}
@@ -14,10 +15,14 @@ impl Solution {
 
         // n! 通りの文字を作成する (3文字だったら↓)
         // 0,1,2 / 0,2,1 / 1,0,2 / 1,2,0 / 2,0,1 / 2,1,0
+        // 0,1,2,3 / 0,1,3,2 / 0,2,1,3 / 0,2,3,1 / 0,3,1,2 / 0,3,2,1
+        // n, n-1
 
-        for n in char_vec.len() {
-            let str = char_vec[0] + &char_vec[1] + &char_vec[2];
-        }
+        println!("{}", char_vec.len().factorial());
+        // 2文字 → 2文字目を2個*1
+        // 3文字 → 3文字目を3個 * (2*1), 2個目を3*2, 1個目を3*2
+        // 4文字 → 4文字目を4個 * (3*2)
+        // n文字 → n文字目を
 
         // ↑ の文字.contains ransam_note で答えが求まる
 
